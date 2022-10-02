@@ -28,7 +28,7 @@ def load_word():
 
     return secret_word
 
-def is_word_guessed(secret_word, letters_guessed, unique_letters):
+def is_word_guessed(secret_word, letters_guessed):
     '''
     A function that checks if all the letters of the secret word have been guessed.
 
@@ -39,7 +39,7 @@ def is_word_guessed(secret_word, letters_guessed, unique_letters):
     Returns: 
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
-    # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
+    #Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
     if unique_letters in letters_guessed:
         return True
     else:
@@ -74,9 +74,12 @@ def is_guess_in_word(guess, secret_word):
         bool: True if the guess is in the secret_word, False otherwise
 
     '''
-    #TODO: check if the letter guess is in the secret word
-
-    pass
+    #Check if the letter guess is in the secret word
+    for letter in unique_letters:
+        if guess == letter:
+            correct_guesses.append(guess)
+            return True
+    return False
 
 
 
@@ -108,7 +111,7 @@ def spaceman(secret_word):
         #Check if the guessed letter is in the secret or not and give the player feedback
         if is_guess_in_word(guess, secret_word):
             print("congrats you guessed a letter")
-            print(get_guessed_word(secret_word, letters_guessed))
+            print(get_guessed_word(secret_word, correct_guesses))
         
         else:
             wrong_guesses.append(guess)
