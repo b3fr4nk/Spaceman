@@ -1,5 +1,9 @@
 import random
 
+unique_letters = []
+wrong_guesses = []
+correct_guesses = []
+
 def load_word():
     '''
     A function that reads a text file of words and randomly selects one to use as the secret word
@@ -14,9 +18,17 @@ def load_word():
     
     words_list = words_list[0].split(' ') #comment this line out if you use a words.txt file with each word on a new line
     secret_word = random.choice(words_list)
+
+    for letter in secret_word:
+        if letter not in unique_letters:
+            unique_letters.append(letter)
+
+    print(secret_word)
+    print(unique_letters)
+
     return secret_word
 
-def is_word_guessed(secret_word, letters_guessed):
+def is_word_guessed(secret_word, letters_guessed, unique_letters):
     '''
     A function that checks if all the letters of the secret word have been guessed.
 
@@ -28,7 +40,10 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    pass
+    if unique_letters in letters_guessed:
+        return True
+    else:
+        return False
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -74,10 +89,10 @@ def spaceman(secret_word):
       secret_word (string): the secret word to guess.
 
     '''
-
+    dead = False
 
     #TODO: show the player information about the game according to the project spec
-
+    print("Welcome to Spaceman the PG version of hangman \n You will guess one letter at a time. If you guess wrong one part of the spaceman will be drawn. Once the spaceman is fully drawn you lose")
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
@@ -85,6 +100,26 @@ def spaceman(secret_word):
     #TODO: show the guessed word so far
 
     #TODO: check if the game has been won or lost
+    num_guesses = 0
+
+    while not dead:
+        guess = input("Guess a letter: ")
+        if guess in wrong_guesses:
+            print("you have already guessed that letter!")
+            continue
+
+        if is_guess_in_word(guess, secret_word):
+            print("congrats you guessed a letter")
+            print(get_guessed_word(secret_word, letters_guessed))
+        
+        else:
+            wrong_guesses.append(guess)
+            num_guesses += 1
+            if num_guesses > 6:
+                print("you lose your spaceman is dead")
+                break
+            else:
+                print(f"your guess is not part of the word, you have {7 - num_guesses}")
 
 
 
