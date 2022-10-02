@@ -28,7 +28,7 @@ def load_word():
 
     return secret_word
 
-def is_word_guessed(secret_word, letters_guessed):
+def is_word_guessed(secret_word, correct_guesses):
     '''
     A function that checks if all the letters of the secret word have been guessed.
 
@@ -40,10 +40,7 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     #Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    if unique_letters in letters_guessed:
-        return True
-    else:
-        return False
+    return len(correct_guesses) == len(unique_letters)
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -57,9 +54,19 @@ def get_guessed_word(secret_word, letters_guessed):
         string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
     '''
 
-    #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
+    #Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
+    output_phrase = []
 
-    pass
+    for i in range(len(secret_word)):
+        output_phrase.append("_")
+
+    for guess in correct_guesses:
+        for letter in range(len(secret_word)):
+            if guess == secret_word[letter]:
+                output_phrase[letter] = secret_word[letter]
+    return output_phrase
+
+
 
 
 def is_guess_in_word(guess, secret_word):
@@ -97,14 +104,10 @@ def spaceman(secret_word):
     #show the player information about the game according to the project spec
     print("Welcome to Spaceman the PG version of hangman \n You will guess one letter at a time. If you guess wrong one part of the spaceman will be drawn. Once the spaceman is fully drawn you lose")
     
-
-    
-    num_guesses = 0
-
     while not dead:
         #Ask the player to guess one letter per round and check that it is only one letter
         guess = input("Guess a letter: ")
-        if guess in wrong_guesses:
+        if guess in wrong_guesses or guess in correct_guesses:
             print("you have already guessed that letter!")
             continue
 
@@ -115,15 +118,18 @@ def spaceman(secret_word):
         
         else:
             wrong_guesses.append(guess)
-            num_guesses += 1
             #check if the game has been won or lost
-            if num_guesses > 6:
+            if len(wrong_guesses) > 6:
                 print("you lose your spaceman is dead")
                 break
             else:
-                print(f"your guess is not part of the word, you have {7 - num_guesses}")
+                print(f"your guess is not part of the word, you have {7 - len(wrong_guesses)}")
 
-
+        if is_word_guessed(secret_word, correct_guesses):
+                print(f"congrats you guessed the word with {7 - len(wrong_guesses)} guesses remaining")
+                break
+        else:
+            print("word is not guessed yet")
 
 
 
