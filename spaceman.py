@@ -91,23 +91,21 @@ def spaceman(secret_word):
     '''
     dead = False
 
-    #TODO: show the player information about the game according to the project spec
+    #show the player information about the game according to the project spec
     print("Welcome to Spaceman the PG version of hangman \n You will guess one letter at a time. If you guess wrong one part of the spaceman will be drawn. Once the spaceman is fully drawn you lose")
-    #TODO: Ask the player to guess one letter per round and check that it is only one letter
+    
 
-    #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
-    #TODO: show the guessed word so far
-
-    #TODO: check if the game has been won or lost
+    
     num_guesses = 0
 
     while not dead:
+        #Ask the player to guess one letter per round and check that it is only one letter
         guess = input("Guess a letter: ")
         if guess in wrong_guesses:
             print("you have already guessed that letter!")
             continue
 
+        #Check if the guessed letter is in the secret or not and give the player feedback
         if is_guess_in_word(guess, secret_word):
             print("congrats you guessed a letter")
             print(get_guessed_word(secret_word, letters_guessed))
@@ -115,6 +113,7 @@ def spaceman(secret_word):
         else:
             wrong_guesses.append(guess)
             num_guesses += 1
+            #check if the game has been won or lost
             if num_guesses > 6:
                 print("you lose your spaceman is dead")
                 break
