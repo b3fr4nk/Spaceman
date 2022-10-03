@@ -23,8 +23,6 @@ def load_word():
         if letter not in unique_letters:
             unique_letters.append(letter)
 
-    print(secret_word)
-    print(unique_letters)
 
     return secret_word
 
@@ -123,7 +121,7 @@ def spaceman(secret_word):
                 print("you lose your spaceman is dead")
                 break
             else:
-                print(f"your guess is not part of the word, you have {7 - len(wrong_guesses)}")
+                print(f"your guess is not part of the word, you have {7 - len(wrong_guesses)} guesses left")
 
         if is_word_guessed(secret_word, correct_guesses):
                 print(f"congrats you guessed the word with {7 - len(wrong_guesses)} guesses remaining")
