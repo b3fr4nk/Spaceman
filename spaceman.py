@@ -32,24 +32,24 @@ def is_word_guessed(secret_word, correct_guesses):
 
     Args:
         secret_word (string): the random word the user is trying to guess.
-        letters_guessed (list of strings): list of letters that have been guessed so far.
+        correct_guesses (list of strings): list of letters that have been guessed correctly.
 
     Returns: 
-        bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
+        bool: True only if all the letters of secret_word are in correct_guesses, False otherwise
     '''
     #Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
     return len(correct_guesses) == len(unique_letters)
 
-def get_guessed_word(secret_word, letters_guessed):
+def get_guessed_word(secret_word, correct_guesses):
     '''
     A function that is used to get a string showing the letters guessed so far in the secret word and underscores for letters that have not been guessed yet.
 
     Args: 
         secret_word (string): the random word the user is trying to guess.
-        letters_guessed (list of strings): list of letters that have been guessed so far.
+        correct_guesses (list of strings): list of letters that have been guessed correctly so far.
 
     Returns: 
-        string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
+        list: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
     '''
 
     #Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
@@ -122,7 +122,7 @@ def spaceman(secret_word):
                 break
             else:
                 print(f"your guess is not part of the word, you have {7 - len(wrong_guesses)} guesses left")
-
+        #check if word is guessed and respond accordingly
         if is_word_guessed(secret_word, correct_guesses):
                 print(f"congrats you guessed the word with {7 - len(wrong_guesses)} guesses remaining")
                 break
